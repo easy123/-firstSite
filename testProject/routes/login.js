@@ -14,6 +14,7 @@ router.get('/', function (req,res,next) {
 //登录验证
 router.post('/login', function (req,res,next) {
     console.log("Print name:"+ req.body.name);
+
     var name = req.body.name.trim();
     var password =  req.body.password.trim();
     if(name==""){
@@ -25,26 +26,21 @@ router.post('/login', function (req,res,next) {
         var sql="select * from [users] where name='"+name+"' and password='"+password+"'";
 
         dbHelper.query(sql,function(err,recordset){
-           // res.send({isSuccess:true});
-            console.log(recordset);
-            if(recordset.length>0){
-                req.session.users={userName:"easy"};
-                console.log("Login Print User :"+req.session.users.userName);
-                res.redirect('index');
-            } else {
-                res.render('login',{title:"登陆",loginErrMsg:"用户名或密码有误!"});
+            if(err){
+                res.render("error",{
+                    message: err.message,
+                    statusCode:err.status
+                });
+            }else{
+                //console.log(recordset);
+                if(recordset.length>0){
+                    req.session.users={userName:"easy"};
+                    console.log("Login Print User :"+req.session.users.userName);
+                    res.redirect('index');
+                } else {
+                    res.render('login',{title:"登陆",loginErrMsg:"用户名或密码有误!"});
+                }
             }
-
-            //if (recordset && recordset.name.toUpperCase()==name.toUpperCase()
-            //    && recordset.password.toUpperCase()==password.toUpperCase()) {
-            //    //记录session
-            //    req.session.users={userName:"easy"};
-            //    console.log("Login Print User :"+req.session.users.userName);
-            //    res.redirect('index');
-            //
-            //} else {
-            //    res.render('login',{title:"登陆",loginErrMsg:"用户名或密码有误!"});
-            //}
         });
     }
 });
