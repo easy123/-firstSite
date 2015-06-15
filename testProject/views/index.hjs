@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div>
+    {{>logout}}
+    </div>
+    <div>
+      <h2</h2>
+    </div>
+
+    <div>
+      <table>
+       <tr>
+          <th scope="col">
+              编号
+          </th>
+          <th scope="col">
+              图片
+          </th>
+          <th scope="col">
+              说明
+          </th>
+          <th scope="col">
+              价格
+          </th>
+        </tr>
+        {{#list}}
+        <tr>
+          <td>{{ id }}</td>
+          <td><img src={{img}} /></td>
+          <td>{{ remarks }}</td>
+          <td>{{ price }}</td>
+        </tr>
+         {{/list}}
+      </table>
+
+         <table>
+             <tr>
+                <th scope="col">
+                    编号
+                </th>
+                <th scope="col">
+                    名称
+                </th>
+                <th scope="col">
+                    图片
+                </th>
+                <th scope="col">
+                    说明
+                </th>
+                <th scope="col">
+                    操作
+                </th>
+              </tr>
+              {{#product}}
+              <tr>
+                <td>{{ id }}</td>
+                <td>{{name}}</td>
+                <td><img src={{image}} /></td>
+                <td>{{ des }}</td>
+                <td>
+                     <input type="button"  class="edit" value="编辑" data-id="{{id}}" >
+                     <input type="button"  class="delete" value="删除" data-id="{{id}}">
+                </td>
+              </tr>
+               {{/product}}
+            </table>
+
+         <div id="addproduct">
+              <form method="post" action="/home/add">
+              <input type="hidden" name="id">
+              名称：<input type="text" name="name" style="margin-top:15px">
+              <br/>
+              图片：<input type="text" name="image"  style="margin-top:15px" >
+              <br/>
+              说明：<input type="text" name="des"  style="margin-top:15px"><br/>
+                <input type="button" value="保存" id="btnSave"  style="margin-top:15px">
+              </form>
+          </div>
+    </div>
+    <script  type="text/javascript" src="/javascripts/jquery-2.0.3.js"></script>
+    <script  type="text/javascript" src="/javascripts/knockout-2.2.0.js"></script>
+    <script>
+        $(function(){
+           //编辑
+           $(".edit").click(function(){
+               var item = $(this);
+               var id=  item.attr("data-id");
+               var tr = item.parents("tr");
+               $("input[name='id']").val(item.attr("data-id"));
+               $("input[name='name']").val(tr.children("td").eq(1).text());
+               $("input[name='image']").val(tr.children("td").eq(2).children("img").attr("src"));
+               $("input[name='des']").val(tr.children("td").eq(3).text());
+           });
+           //保存
+           $("#btnSave").click(function(){
+               var id = $.trim($("input[name='id']").val());
+               var name= $.trim( $("input[name='name']").val());
+               var image= $.trim( $("input[name='image']").val());
+               var des= $.trim( $("input[name='des']").val());
+               $.ajax({
+                   url:'/index/edit',
+                   type:'POST',
+                   data:$("form").serialize(),
+                   dataType:"json",
+                   success:function(result)
+                   {
+                       if(result.isSuccess)
+                       {
+                           alert("保存成功");
+                           location.reload();
+                       }
+                   }
+               });
+           });
+
+           $(".delete").click(function(){
+                if(confirm("确定要删除数据吗？"))
+                {
+                    var id=  $(this).attr("data-id");
+                    $.ajax({
+                        url:'/index/delete',
+                        type:'POST',
+                        data:{id:id},
+                        dataType:"json",
+                        success:function(result)
+                        {
+                            if(result.isSuccess)
+                            {
+                                alert("删除成功");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+           });
+        });
+    </script>
+  </body>
+</html>

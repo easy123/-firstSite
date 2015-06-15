@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/style.css' />
+
+  </head>
+  <body>
+     {{>logout}}
+     <h1>{{ title }}</h1>
+      <div>
+            <span class="error">{{loginErrMsg}}</span>
+          <form method="post" action="/login">
+            用户名：<input type="text" name="name" ><span class="error">{{nameErrMsg}}</span><br/><br/>
+            密&nbsp;&nbsp码：<input type="password" name="password" ><span class="error">{{pwdErrMsg}}</span><br/><br/>
+           <input type="submit" value="登陆" >
+          </form>
+      </div>
+</html>
