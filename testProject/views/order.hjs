@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div>
+    {{>logout}}
+    </div>
+    <div>
+      <h2</h2>
+    </div>
+
+    <div>
+      <table>
+       <tr>
+          <th scope="col">
+              订单编号
+          </th>
+          <th scope="col">
+              产品
+          </th>
+          <th scope="col">
+              用户
+          </th>
+          <th scope="col">
+              备注
+          </th>
+          <th scope="col">
+               图片
+          </th>
+        </tr>
+        {{#order}}
+        <tr>
+          <td>{{ orderId }}</td>
+          <td>{{ name }}</td>
+          <td>{{ userName }}</td>
+          <td>{{ des }}</td>
+          <td>{{ img }}</td>
+        </tr>
+         {{/order}}
+      </table>
+    </div>
+  </body>
+</html>

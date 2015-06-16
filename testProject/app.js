@@ -12,6 +12,7 @@ var app = new express();
 
 var login = require("./routes/login");
 var index = require("./routes/index");
+var order = require("./routes/order");
 
 //视图引擎设置
 app.set("views",path.join(__dirname,'views'));
@@ -38,7 +39,8 @@ app.use(function (req,res,next) {
     if(!users){
         if (req.originalUrl != '/') {
             if (req.originalUrl == '/login' && req.method == 'POST') {
-            }else{
+            }
+            else{
                 return res.redirect('/');
             }
         }
@@ -62,6 +64,7 @@ app.use(function (req,res,next) {
 app.use("/",login);
 app.use("/login",login);
 app.use("/index",index);
+app.use("/order",order);
 
 //app.get('/home', function (req,res,next) {
 //    res.render("home",{title:"首页"});

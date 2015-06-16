@@ -34,7 +34,7 @@ router.post('/login', function (req,res,next) {
             }else{
                 //console.log(recordset);
                 if(recordset.length>0){
-                    req.session.users={userName:"easy"};
+                    req.session.users={userName:name};
                     console.log("Login Print User :"+req.session.users.userName);
                     res.redirect('index');
                 } else {
