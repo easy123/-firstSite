@@ -266,3 +266,4 @@
 2015-06-16 11:43:26:[用户]admin	[URL]/order
 2015-06-16 11:43:26:[用户]admin	[URL]/stylesheets/style.css
 2015-06-16 11:43:26:[用户]admin	[URL]/favicon.ico
+2015-06-16 12:02:04:[用户]admin	[URL]/index/logout

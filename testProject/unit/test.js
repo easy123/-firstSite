@@ -64,12 +64,12 @@ describe('Test Order', function () {
         });
     });
 
-    //describe('Test getProductList Function',function(){
-    //    it('result is not error',function(){
-    //        return test.getProductList('150,151').then(function(data){
-    //            data.should.eql(2);
-    //        });
-    //    });
-    //});
+    describe('Test getProductList Function',function(){
+        it('result is not error',function(){
+            return test.getProductList('150,151').then(function(data){
+                data.should.length(2);
+            });
+        });
+    });
 
 });
